@@ -1,0 +1,187 @@
+header {
+    .header {
+        position: fixed;
+        @include flex(center, space-between);
+        height: var(--height-header);
+        z-index: 10;
+        @include transition(.4s);
+
+        .logo {
+            img {
+                display: block;
+            }
+
+            h1 {
+                display: none;
+            }
+        }
+
+        .menu {
+            display: flex;
+            height: 100%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+
+            a {
+                @include flex(center, center);
+                color: $white-cl;
+                padding: 0 35px;
+                font-size: 15px;
+                letter-spacing: .25px;
+                font-weight: bold;
+                text-transform: uppercase;
+                height: 100%;
+                opacity: .5;
+                @include transition(.4s);
+
+                &:hover {
+                    opacity: 1;
+                    color: $white-cl;
+                }
+
+                &.active {
+                    opacity: 1;
+                    color: $brown-cl;
+                }
+            }
+        }
+
+        .right {
+            position: relative;
+
+            .lang {
+                &__btn {
+                    cursor: pointer;
+                    color: $brown-cl;
+
+                    span {
+                        font-family: pb;
+                        color: $white-cl;
+                    }
+
+                    img {
+                        transform: translateY(-3px);
+                    }
+                }
+
+                &__options {
+                    position: absolute;
+                    background-color: $white-cl;
+                    top: 130%;
+                    left: -60%;
+                    opacity: 0;
+                    pointer-events: none;
+                    @include transition(.4s);
+                    @include flex(center, center);
+                    flex-direction: column;
+
+                    a {
+                        padding: 7px 15px;
+                        cursor: pointer;
+                        @include text(pb, var(--body16-fs), var(--body16-lh), $black-cl, uppercase);
+                        @include transition(.4s);
+
+                        &:hover {
+                            color: $brown-cl;
+                        }
+                    }
+                }
+
+                &.active {
+                    .lang__options {
+                        opacity: 1;
+                        pointer-events: auto;
+                    }
+                }
+            }
+
+            .mobile-btn {
+                display: none;
+            }
+
+
+        }
+
+        &.active {
+            background-color: $black-cl;
+            height: 60px;
+        }
+
+        @include sm {
+            background-color: $black-cl;
+
+            .menu {
+                display: none;
+            }
+
+            .right {
+                @include flex(center, center);
+
+                .lang {
+                    &__options {
+                        top: 100%;
+                        left: -30%;
+                    }
+                }
+
+                .mobile-btn {
+                    position: relative;
+                    @include flex(center, center);
+                    @include size(30px);
+                    margin-left: 20px;
+                    cursor: pointer;
+                    @include transition(.4s);
+
+                    &::before {
+                        transform: translateY(-12px);
+                    }
+
+                    &::after {
+                        transform: translateY(12px);
+                    }
+
+                    span {
+                        @include size(30px, 3px);
+                        background-color: $brown-cl;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
+                        @include transition(.5s);
+                    }
+
+                    &.active {
+                        &::before {
+                            transform: rotate(45deg)
+                        }
+
+                        &::after {
+                            transform: rotate(-45deg)
+                        }
+
+                        span {
+                            opacity: 0;
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+        @include xs {
+            .right {
+
+
+                .mobile-btn {
+                    &::before {
+                        transform: translateY(-10px);
+                    }
+
+                    &::after {
+                        transform: translateY(10px);
+                    }
+                }
+            }
+        }
+    }
+}

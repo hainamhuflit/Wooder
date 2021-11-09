@@ -1,0 +1,46 @@
+// css navigator (Menu)
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: $black-cl;
+    opacity: 0;
+    pointer-events: none;
+    @include transition(.4s);
+    z-index: 11;
+    @include flex(center, center);
+
+    .menu {
+        text-align: center;
+        width: 100%;
+
+        .nav-item {
+            padding: 25px 0;
+
+            a {
+                @include text(pb, var(--h4-fs), var(--h4-lh), $white-cl, uppercase);
+                letter-spacing: 2px;
+                opacity: .5;
+                @include transition(.4s);
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &.active {
+                    opacity: 1;
+                    color: $brown-cl;
+                }
+            }
+        }
+    }
+
+    @include sm {
+        &.active {
+            opacity: 1;
+            pointer-events: auto;
+            top: var(--height-header);
+        }
+    }
+}
