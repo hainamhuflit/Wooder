@@ -265,7 +265,7 @@ main {
 
         &-item:nth-child(odd) {
             @include transform (translateX(-5%));
-            @include transition(1s);
+            @include transition(.4s);
             opacity: 0;
 
             &.fade-in {
@@ -289,7 +289,7 @@ main {
         &-item:nth-child(even) {
             flex-direction: row-reverse;
             @include transform (translateX(5%));
-            @include transition(1s);
+            @include transition(.4s);
             opacity: 0;
 
             &.fade-in {
@@ -316,7 +316,7 @@ main {
             margin-top: -30px;
             text-align: center;
             opacity: 0;
-            @include transition(1s);
+            @include transition(.4s);
 
             h3 {
                 position: relative;
@@ -350,7 +350,7 @@ main {
             margin-top: 60px;
             @include flex(center, space-around);
             opacity: 0;
-            @include transition(1s);
+            @include transition(.4s);
 
             .video__item {
                 text-align: center;
@@ -477,7 +477,6 @@ main {
         background-attachment: fixed;
         padding: 190px 0;
 
-
         &::before {
             position: absolute;
             content: "";
@@ -492,9 +491,6 @@ main {
         .content-section {
             position: relative;
             z-index: 2;
-            @include transform(translateX(-10%));
-            opacity: 0;
-            @include transition(1s);
 
             h3 {
                 @include text(pb, var(--h3-fs), var(--h3-lh), $brown-cl, uppercase);
@@ -506,11 +502,6 @@ main {
             p {
                 color: $white-cl;
             }
-
-            &.fade-in {
-                @include transform(translateX(0%));
-                opacity: 1;
-            }
         }
 
         .design-btn {
@@ -518,8 +509,7 @@ main {
             position: relative;
             cursor: pointer;
             z-index: 9;
-            opacity: 0;
-            @include transition(1s);
+
 
             img {
                 margin-right: 16px;
@@ -532,9 +522,6 @@ main {
                 background-color: $brown-cl;
             }
 
-            &.fade {
-                opacity: 1;
-            }
         }
 
         @include xs {
@@ -621,7 +608,6 @@ main {
         background-color: $black-cl;
 
         .content-section {
-            margin-top: -20px;
             color: $white-cl;
         }
 
@@ -834,6 +820,7 @@ main {
 
     .accordian {
         margin-top: -88px;
+
         .accor_item {
             width: 100%;
 
@@ -870,6 +857,7 @@ main {
                 height: 0;
                 overflow: hidden;
                 @include transition(height .4s);
+
                 p {
                     padding: 20px 0;
                 }

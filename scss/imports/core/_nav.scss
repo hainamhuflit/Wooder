@@ -1,7 +1,7 @@
 // css navigator (Menu)
 .nav {
     position: fixed;
-    top: 0;
+    top: var(--height-header);
     width: 100vw;
     height: 100%;
     background-color: $black-cl;
@@ -10,6 +10,7 @@
     @include transition(.4s);
     z-index: 11;
     @include flex(center, center);
+    @include transform(translateX(100%));
 
     .menu {
         text-align: center;
@@ -38,9 +39,10 @@
 
     @include sm {
         &.active {
+            top: var(--height-header);
             opacity: 1;
             pointer-events: auto;
-            top: var(--height-header);
+            @include transform(translateX(0%));
         }
     }
 }

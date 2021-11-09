@@ -1,10 +1,38 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const header = $('.header'),
+    slider = $('.slider'),
+    feature = $('.feature'),
+    feature1 = $('#feature-1'),
+    feature2 = $('#feature-2'),
+    quality = $('.quality'),
+    about = $('.about'),
+    gallery = $('.gallery');
 
-//Open Nav Mob
 const mobBtn = $('.mobile-btn'),
     nav = $('.nav');
+
+const langBtn = $('.lang'),
+    langCurrent = $('.lang__btn span '),
+    langOptions = $('.lang__options'),
+    langItemOptions = $$('.lang__options a');
+
+const optionsMenu = $$('.header .menu li a'),
+    optionsNav = $$('.nav .menu li a');
+
+
+let heightHeader = header.clientHeight,
+    heightSlider = slider.clientHeight,
+    heightFeature = feature.clientHeight,
+    heightFeature1 = feature1.clientHeight,
+    heightFeature2 = feature2.clientHeight,
+    heightQuality = quality.clientHeight,
+    wWidth = window.innerWidth;
+
+
+//Open Nav Mob
+
 
 let openNav = mobBtn.addEventListener('click', function () {
 
@@ -19,30 +47,11 @@ window.addEventListener('resize', function () {
         mobBtn.classList.remove('active');
         nav.classList.remove('active');
     }
-    console.log(wWidth)
 })
 
 
 //Animation Scroll
-const header = $('.header'),
-    slider = $('.slider'),
-    feature = $('.feature'),
-    feature1 = $('#feature-1'),
-    feature2 = $('#feature-2'),
-    quality = $('.quality'),
-    about = $('.about'),
-    design = $('.design'),
-    gallery = $('.gallery');
 
-let heightHeader = header.clientHeight,
-    heightSlider = slider.clientHeight,
-    heightFeature = feature.clientHeight,
-    heightFeature1 = feature1.clientHeight,
-    heightFeature2 = feature2.clientHeight,
-    heightQuality = quality.clientHeight,
-    heightDesign = design.clientHeight,
-
-    wWidth = window.innerWidth;
 
 
 //Back to top
@@ -56,10 +65,6 @@ backToTop.addEventListener('click', function () {
 
 
 //Language button
-const langBtn = $('.lang'),
-    langCurrent = $('.lang__btn span '),
-    langOptions = $('.lang__options'),
-    langItemOptions = $$('.lang__options a');
 
 langBtn.addEventListener('click', function (e) {
     e.stopPropagation();
@@ -117,9 +122,6 @@ videoList.forEach(function (item) {
 
 
 //section scroll + click active
-const optionsMenu = $$('.header .menu li a'),
-    optionsNav = $$('.nav .menu li a');
-
 let sections = [];
 
 function removeActive() {
@@ -173,63 +175,52 @@ optionsNav.forEach(function (itemNav) {
 })
 
 
-
 //scroll Event + Animation
-window.addEventListener('scroll', function () {
-    const scrollY = window.pageYOffset;
+window.addEventListener('load', function () {
+    window.addEventListener('scroll', function () {
+        const scrollY = window.pageYOffset;
 
-    //Header Background
-    if (scrollY > heightSlider - heightHeader) {
-        //Device width > 990px (fix mobile prob)
-        if (wWidth > 992) {
+        //Header Background
+        if (scrollY > heightSlider - heightHeader && wWidth > 992) {
+            //Device width > 990px (fix mobile prob)  
             header.classList.add('active')
+        } else {
+            header.classList.remove('active')
         }
-    } else {
-        header.classList.remove('active')
-    }
 
-    //Remove then add active when scroll to section
-    sections.forEach(function (itemSection, index) {
-        let sectionHeight = itemSection.offsetTop - heightHeader + 20;
-        if (scrollY > sectionHeight) {
-            removeActive();
-            optionsMenu[index].classList.add('active')
+        //Remove then add active when scroll to section
+        sections.forEach(function (itemSection, index) {
+            let sectionHeight = itemSection.offsetTop - heightHeader + 20;
+            if (scrollY > sectionHeight) {
+                removeActive();
+                optionsMenu[index].classList.add('active')
+            }
+        })
+
+        //Feature + Video Fade-in
+        this.setTimeout(function () {
+            feature1.classList.add('fade-in')
+            feature2.classList.add('fade-in')
+        }, 500)
+
+        //Quality + Video
+        if (scrollY > heightSlider + heightFeature1) {
+            this.setTimeout(function () {
+                const video = $('.video__list');
+                quality.classList.add('fade');
+                video.classList.add('fade');
+            }, 200)
+        }
+
+        // About
+        if (scrollY > heightSlider + heightFeature + heightQuality) {
+            this.setTimeout(function () {
+                about.classList.add('fade-in')
+            }, 100)
         }
     })
-
-    //Feature + Video Fade-in
-    this.setTimeout(function () {
-        feature1.classList.add('fade-in')
-        feature2.classList.add('fade-in')
-    }, 500)
-
-    //Quality + Video
-    if (scrollY > heightSlider + heightFeature1) {
-        this.setTimeout(function () {
-            const video = $('.video__list');
-            quality.classList.add('fade');
-            video.classList.add('fade');
-        }, 200)
-    }
-
-    //Design
-    if (scrollY > heightSlider + heightFeature) {
-        this.setTimeout(function () {
-            let designContent = $('.design .content-section'),
-                designBtn = $('.design .design-btn');
-
-            designContent.classList.add('fade-in');
-            designBtn.classList.add('fade');
-        }, 200)
-    }
-
-    // About
-    if (scrollY > heightSlider + heightFeature + heightQuality) {
-        this.setTimeout(function () {
-            about.classList.add('fade-in')
-        }, 100)
-    }
 })
+
 
 
 //Slider
