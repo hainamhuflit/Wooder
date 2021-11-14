@@ -21,6 +21,26 @@ const langBtn = $('.lang'),
 const optionsMenu = $$('.header .menu li a'),
     optionsNav = $$('.nav .menu li a');
 
+const backToTop = $('.footer .right div')
+
+const popUpBtn = $$('.video__item .img'),
+    popUpVid = $('.popup__video'),
+    popUpItem = $('.popup__video-item iframe'),
+    exitPopUp = $('.exit__popup'),
+    videoList = $$('.video__item .img');
+
+const sliderList = $$('.slider__list-item'),
+    prevBtn = $('.-prev'),
+    nextBtn = $('.-next'),
+    dot = $$('.dots li'),
+    sliderNumber = $('.slider__bottom .left span');
+
+
+const tagNews = $$('.news__tag .tag'),
+    listNews = $$('.news__list');
+
+const accor = $$('.accor_item .accor-btn');
+
 
 let heightHeader = header.clientHeight,
     heightSlider = slider.clientHeight,
@@ -32,8 +52,6 @@ let heightHeader = header.clientHeight,
 
 
 //Open Nav Mob
-
-
 let openNav = mobBtn.addEventListener('click', function () {
 
     mobBtn.classList.toggle('active');
@@ -50,13 +68,7 @@ window.addEventListener('resize', function () {
 })
 
 
-//Animation Scroll
-
-
-
 //Back to top
-const backToTop = $('.footer .right div')
-
 backToTop.addEventListener('click', function () {
     window.scrollTo({
         top: 0
@@ -65,7 +77,6 @@ backToTop.addEventListener('click', function () {
 
 
 //Language button
-
 langBtn.addEventListener('click', function (e) {
     e.stopPropagation();
     langBtn.classList.toggle('active')
@@ -87,13 +98,6 @@ langItemOptions.forEach(function (item) {
 
 
 //Pop-up Video
-const popUpBtn = $$('.video__item .img'),
-    popUpVid = $('.popup__video'),
-    popUpItem = $('.popup__video-item iframe'),
-    exitPopUp = $('.exit__popup'),
-    videoList = $$('.video__item .img');
-
-
 videoList.forEach(function (item) {
     item.addEventListener('click', function () {
         //get vid data
@@ -224,12 +228,6 @@ window.addEventListener('load', function () {
 
 
 //Slider
-const sliderList = $$('.slider__list-item'),
-    prevBtn = $('.-prev'),
-    nextBtn = $('.-next'),
-    dot = $$('.dots li'),
-    sliderNumber = $('.slider__bottom .left span');
-
 let currentSlider = 0;
 
 sliderList.forEach(function (sliderItem, index) {
@@ -279,9 +277,8 @@ dot.forEach(function (item, index) {
     })
 })
 
-const tagNews = $$('.news__tag .tag'),
-    listNews = $$('.news__list');
 
+//News
 tagNews.forEach(function (item, index) {
     item.addEventListener('click', function () {
         let tagID = index + 1;
@@ -296,16 +293,17 @@ tagNews.forEach(function (item, index) {
     })
 })
 
-const accor = $$('.accor_item .accor-btn');
 
+//Accordian
 accor.forEach(function (accBtn) {
     accBtn.addEventListener('click', function () {
         this.classList.toggle('active')
-        const panel = this.nextElementSibling;
-        if (panel.style.height) {
-            panel.style.height = null
+        const panel = this.parentElement.scrollHeight;
+        if (this.classList.contains('active')) {
+            this.parentElement.style.maxHeight = panel + 'px';
         } else {
-            panel.style.height = panel.scrollHeight + 'px'
+            this.parentElement.style.maxHeight = '';
         }
     })
 })
+

@@ -13,11 +13,10 @@ main {
 
             &-item {
                 position: absolute;
-                @include mid(false);
                 @include size(100%);
-                opacity: 0;
-                pointer-events: none;
                 @include transition(.4s);
+                // opacity: 0;
+                // pointer-events: none;
 
                 .content {
                     position: absolute;
@@ -55,10 +54,10 @@ main {
                     object-fit: cover;
                 }
 
-                &.active {
-                    opacity: 1;
-                    pointer-events: auto;
-                }
+                // &.active {
+                //     opacity: 1;
+                //     pointer-events: auto;
+                // }
             }
         }
 
@@ -94,11 +93,13 @@ main {
                     width: 50px
                 }
 
-                .dots {
+                .flickity-page-dots {
                     @include flex(center, normal);
                     margin-left: 15px;
+                    position: absolute;
+                    bottom: 45%;
 
-                    li {
+                    .dot {
                         @include size(8px);
                         background-color: $gray-cl;
                         border: 2px solid $gray-cl;
@@ -107,7 +108,7 @@ main {
                         cursor: pointer;
                     }
 
-                    .active {
+                    .is-selected {
                         background-color: $brown-cl;
                         border: 2px solid $brown-cl;
                     }
@@ -121,7 +122,7 @@ main {
                 position: absolute;
                 bottom: 10%;
                 left: 50%;
-                transform: translateX(50%);
+                // transform: translateX(50%);
 
                 .slider-mouse {
                     margin-bottom: 12px;
@@ -773,10 +774,8 @@ main {
                 opacity: 1;
                 display: grid;
             }
-        }
 
-        @include sm {
-            .news__list {
+            @include sm {
                 display: none;
 
                 .news__item {
@@ -806,14 +805,17 @@ main {
                     flex-direction: column;
                     @include flex(center, space-around);
                 }
+
+            }
+
+            @include xs {
+                .news__item-content {
+                    @include overtext(0)
+                }
             }
         }
 
-        @include xs {
-            .news__item-content {
-                @include overtext(0)
-            }
-        }
+
     }
 
     //Section Accordian
@@ -823,6 +825,9 @@ main {
 
         .accor_item {
             width: 100%;
+            max-height: 61.6px;
+            overflow: hidden;
+            @include transition(.4s);
 
             .accor-btn {
                 width: 100%;
@@ -854,14 +859,16 @@ main {
             .panel {
                 padding: 0 20px;
                 background-color: white;
-                height: 0;
-                overflow: hidden;
-                @include transition(height .4s);
+                @include transition(max-height .4s);
 
                 p {
                     padding: 20px 0;
                 }
             }
+        }
+
+        @include xs {
+            margin-top: -50px;
         }
     }
 
@@ -869,16 +876,25 @@ main {
         padding-bottom: 90px;
 
         .more__img {
-            height: 356px;
-            width: auto;
-            display: flex;
-            overflow: hidden;
 
-            img {
-                margin-right: 24px;
+            .carousel-cell {
+                position: relative;
+                width: 40%;
+                height: 356px;
+
+                img {
+                    @include midimg(100%);
+                }
             }
         }
 
+        @include sm {
+            .more__img {
+                .carousel-cell {
+                    width: 70%;
+                }
+            }
+        }
     }
 }
 

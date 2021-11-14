@@ -128,6 +128,9 @@ article {
 
 .section {
     padding: var(--pd-section) 0;
+    @include xs {
+        padding: var(--pd-section) 0;
+    }
 }
 
 .container {
@@ -234,7 +237,10 @@ article {
 }
 
 .content-section {
-    margin-top: -23px;
+    margin-top: -20px;
+    @include xs {
+        margin: 0;
+    }
 }
 
 .mobile-btn {
