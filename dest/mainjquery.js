@@ -322,7 +322,6 @@ $(document).ready(function () {
 //Flickity img bottom
 $('.main-carousel').flickity({
     // options
-    cellAlign: 'left',
     wrapAround: true,
     prevNextButtons: false,
     pageDots: false,
