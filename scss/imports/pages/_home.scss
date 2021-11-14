@@ -876,15 +876,32 @@ main {
         padding-bottom: 90px;
 
         .more__img {
-
             .carousel-cell {
                 position: relative;
-                width: 40%;
+                width: 50%;
                 height: 356px;
 
                 img {
                     @include midimg(100%);
                 }
+            }
+        }
+
+        .progress {
+            margin-top: 20px;
+            width: 250px;
+            height: 4px;
+            background-color: #e2e2e2;
+            position: relative;
+            left: 50%;
+            @include transform(translateX(-50%));
+            overflow: hidden;
+
+            .progress-bar {
+                position: absolute;
+                height: 100%;
+                background-color: $brown-cl;
+                width: 0%;
             }
         }
 

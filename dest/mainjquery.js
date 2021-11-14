@@ -103,7 +103,7 @@ $(document).ready(function () {
     //Pop-up Video
     videoList.on('click', function () {
         let itemVid = $(this).attr('vid_data_src')
-        popUpItem.attr('src', 'https://www.youtube.com/embed/' + itemVid + '?autoplay=0&mute=1')
+        popUpItem.attr('src', 'https://www.youtube.com/embed/' + itemVid + '?autoplay=0&mute=0')
 
         $(this).on('click', function (e) {
             e.stopPropagation()
@@ -473,3 +473,7 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 };
     initPhotoSwipeFromDOM('.gallery__list');
 // });  
+$('.main-carousel').on( 'scroll.flickity', function( event, progress ) {
+    let progressPer = progress * 100 + '%'
+    $('.progress .progress-bar').css('width' , progressPer)
+});

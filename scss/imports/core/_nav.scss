@@ -2,8 +2,7 @@
 .nav {
     position: fixed;
     top: var(--height-header);
-    width: 100vw;
-    height: 100%;
+    @include size(100vw, 100%);
     background-color: $black-cl;
     opacity: 0;
     pointer-events: none;
@@ -15,7 +14,7 @@
     .menu {
         text-align: center;
         width: 100%;
-
+        z-index: 12;
         .nav-item {
             padding: 25px 0;
 
