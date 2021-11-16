@@ -14,7 +14,7 @@ main {
             &-item {
                 position: absolute;
                 @include size(100%);
-                @include transition(.4s);
+                // @include transition(.4s);
                 // opacity: 0;
                 // pointer-events: none;
 
@@ -872,17 +872,19 @@ main {
         }
     }
 
-    .slide-img {
+    .more_img {
         padding-bottom: 90px;
+        height: 400px;
 
-        .more__img {
-            .carousel-cell {
-                position: relative;
-                width: 50%;
-                height: 356px;
+        .swiper {
+            @include size (100%);
 
+            .swiper-slide {
+                width: auto;
                 img {
-                    @include midimg(100%);
+                    width: auto;
+                    height: 100%;
+                    object-fit: cover;
                 }
             }
         }

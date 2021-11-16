@@ -98,6 +98,7 @@ $(document).ready(function () {
 
         langCurrent.text(text)
         $(this).text(saveText)
+        langBtn.removeClass('active')
     })
 
     //Pop-up Video
@@ -265,7 +266,7 @@ $(document).ready(function () {
     $carousel.flickity({
         cellAlign: 'left',
         contain: true,
-        // wrapAround: true,
+        wrapAround: true,
         prevNextButtons: false,
         on: {
             ready: function () {
@@ -319,21 +320,10 @@ $(document).ready(function () {
 })
 
 
-//Flickity img bottom
-$('.main-carousel').flickity({
-    // options
-    wrapAround: true,
-    prevNextButtons: false,
-    pageDots: false,
-    groupCells: '50%'
-
-});
-
-
 //PhotoSwipe Func
 // $(window).load(function () {
-var initPhotoSwipeFromDOM = function(gallerySelector) {
-    var parseThumbnailElements = function(el) {
+var initPhotoSwipeFromDOM = function (gallerySelector) {
+    var parseThumbnailElements = function (el) {
         var thumbElements = el.childNodes,
             numNodes = thumbElements.length,
             items = [],
@@ -341,9 +331,9 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
             linkEl,
             size,
             item;
-        for(var i = 0; i < numNodes; i++) {
+        for (var i = 0; i < numNodes; i++) {
             figureEl = thumbElements[i]; // <figure> element
-            if(figureEl.nodeType !== 1) {
+            if (figureEl.nodeType !== 1) {
                 continue;
             }
             linkEl = figureEl.children[0]; // <a> element
@@ -353,29 +343,29 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
                 w: parseInt(size[0], 10),
                 h: parseInt(size[1], 10)
             };
-            if(figureEl.children.length > 1) {
-                item.title = figureEl.children[1].innerHTML; 
+            if (figureEl.children.length > 1) {
+                item.title = figureEl.children[1].innerHTML;
             }
-            if(linkEl.children.length > 0) {
+            if (linkEl.children.length > 0) {
                 // <img> thumbnail element, retrieving thumbnail url
                 item.msrc = linkEl.children[0].getAttribute('src');
-            } 
+            }
             item.el = figureEl; // save link to element for getThumbBoundsFn
             items.push(item);
         }
         return items;
     };
     var closest = function closest(el, fn) {
-        return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+        return el && (fn(el) ? el : closest(el.parentNode, fn));
     };
-    var onThumbnailsClick = function(e) {
+    var onThumbnailsClick = function (e) {
         e = e || window.event;
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
         var eTarget = e.target || e.srcElement;
-        var clickedListItem = closest(eTarget, function(el) {
+        var clickedListItem = closest(eTarget, function (el) {
             return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
         });
-        if(!clickedListItem) {
+        if (!clickedListItem) {
             return;
         }
         var clickedGallery = clickedListItem.parentNode,
@@ -384,43 +374,43 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
             nodeIndex = 0,
             index;
         for (var i = 0; i < numChildNodes; i++) {
-            if(childNodes[i].nodeType !== 1) { 
-                continue; 
+            if (childNodes[i].nodeType !== 1) {
+                continue;
             }
-            if(childNodes[i] === clickedListItem) {
+            if (childNodes[i] === clickedListItem) {
                 index = nodeIndex;
                 break;
             }
             nodeIndex++;
         }
-        if(index >= 0) {
-            openPhotoSwipe( index, clickedGallery );
+        if (index >= 0) {
+            openPhotoSwipe(index, clickedGallery);
         }
         return false;
     };
-    var photoswipeParseHash = function() {
+    var photoswipeParseHash = function () {
         var hash = window.location.hash.substring(1),
-        params = {};
-        if(hash.length < 5) {
+            params = {};
+        if (hash.length < 5) {
             return params;
         }
         var vars = hash.split('&');
         for (var i = 0; i < vars.length; i++) {
-            if(!vars[i]) {
+            if (!vars[i]) {
                 continue;
             }
-            var pair = vars[i].split('=');  
-            if(pair.length < 2) {
+            var pair = vars[i].split('=');
+            if (pair.length < 2) {
                 continue;
-            }           
+            }
             params[pair[0]] = pair[1];
         }
-        if(params.gid) {
+        if (params.gid) {
             params.gid = parseInt(params.gid, 10);
         }
         return params;
     };
-    var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+    var openPhotoSwipe = function (index, galleryElement, disableAnimation, fromURL) {
         var pswpElement = document.querySelectorAll('.pswp')[0],
             gallery,
             options,
@@ -428,20 +418,24 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
         items = parseThumbnailElements(galleryElement);
         options = {
             galleryUID: galleryElement.getAttribute('data-pswp-uid'),
-            getThumbBoundsFn: function(index) {
+            getThumbBoundsFn: function (index) {
                 var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
                     pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-                    rect = thumbnail.getBoundingClientRect(); 
+                    rect = thumbnail.getBoundingClientRect();
 
-                return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                return {
+                    x: rect.left,
+                    y: rect.top + pageYScroll,
+                    w: rect.width
+                };
             },
-            showAnimationDuration : 0,
-            hideAnimationDuration : 0
+            showAnimationDuration: 0,
+            hideAnimationDuration: 0
         };
-        if(fromURL) {
-            if(options.galleryPIDs) {
-                for(var j = 0; j < items.length; j++) {
-                    if(items[j].pid == index) {
+        if (fromURL) {
+            if (options.galleryPIDs) {
+                for (var j = 0; j < items.length; j++) {
+                    if (items[j].pid == index) {
                         options.index = j;
                         break;
                     }
@@ -452,28 +446,53 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
         } else {
             options.index = parseInt(index, 10);
         }
-        if( isNaN(options.index) ) {
+        if (isNaN(options.index)) {
             return;
         }
-        if(disableAnimation) {
+        if (disableAnimation) {
             options.showAnimationDuration = 0;
         }
-        gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
         gallery.init();
     };
-    var galleryElements = document.querySelectorAll( gallerySelector );
-    for(var i = 0, l = galleryElements.length; i < l; i++) {
-        galleryElements[i].setAttribute('data-pswp-uid', i+1);
+    var galleryElements = document.querySelectorAll(gallerySelector);
+    for (var i = 0, l = galleryElements.length; i < l; i++) {
+        galleryElements[i].setAttribute('data-pswp-uid', i + 1);
         galleryElements[i].onclick = onThumbnailsClick;
     }
     var hashData = photoswipeParseHash();
-    if(hashData.pid && hashData.gid) {
-        openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+    if (hashData.pid && hashData.gid) {
+        openPhotoSwipe(hashData.pid, galleryElements[hashData.gid - 1], true, true);
     }
 };
-    initPhotoSwipeFromDOM('.gallery__list');
+initPhotoSwipeFromDOM('.gallery__list');
 // });  
-$('.main-carousel').on( 'scroll.flickity', function( event, progress ) {
-    let progressPer = progress * 100 + '%'
-    $('.progress .progress-bar').css('width' , progressPer)
+
+//Swiper img bottom
+
+const swiper = new Swiper('.swiper', {
+    loop: true,
+    freeMode: true,
+    slidesPerView: 'auto',
+    shortSwipes: false,
+    slideToClickedSlide: true,
+    preventClicksPropagation: false,
+    preventClicks: false,
+    spaceBetween: 10,
+
+    // scrollbar: {
+    //     el: '.swiper-scrollbar',
+    // },
+    // on: {
+    //     slideChange: function () {
+    //         var progress = $(this).scrollbar.dragE1
+    //         console.log(progress)
+    //     }
+    // }
 });
+
+
+// $('.main-carousel').on('scroll.flickity', function (event, progress) {
+//     let progressPer = progress * 100 + '%'
+//     $('.progress .progress-bar').css('width', progressPer)
+// });
