@@ -262,12 +262,13 @@ $(document).ready(function () {
     //     showNumber(currentSlider + 1)
     // }
 
-    let $carousel = $('.slider__list');
-    $carousel.flickity({
+    let $carousel = $('.slider__list').flickity({
         cellAlign: 'left',
         contain: true,
-        wrapAround: true,
+        wrapAround: false,
         prevNextButtons: false,
+        imagesLoaded: true,
+        percentPosition: false,
         on: {
             ready: function () {
                 let dots = $('.flickity-page-dots')
@@ -279,8 +280,21 @@ $(document).ready(function () {
                 sliderNumber.text(indexPage.toString().padStart(2, '0'))
             }
         }
-
     })
+
+    let $imgs = $carousel.find('.slider__list-item .slider-img')
+    let flkty = $carousel.data('flickity');
+    let docStyle = document.documentElement.style;
+    let transformProp = typeof docStyle.transform == 'string' ?
+        'transform' : 'WebkitTransform';
+
+    $carousel.on('scroll.flickity', function () {
+        flkty.slides.forEach(function (slide, i) {
+            let img = $imgs[i];
+            let x = (slide.target + flkty.x) * -1 / 2;
+            img.style[transformProp] = 'translateX(' + x + 'px)';
+        });
+    });
 
     $('.slider__bottom .-prev').on('click', function (e) {
         e.preventDefault()

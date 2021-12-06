@@ -36,8 +36,7 @@ const sliderList = $$('.slider__list-item'),
     sliderNumber = $('.slider__bottom .left span');
 
 
-const tagNews = $$('.news__tag .tag'),
-    listNews = $$('.news__list');
+
 
 const accor = $$('.accor_item .accor-btn');
 
@@ -279,6 +278,10 @@ dot.forEach(function (item, index) {
 
 
 //News
+
+const tagNews = $$('.news__tag .tag'),
+    listNews = $$('.news__list');
+
 tagNews.forEach(function (item, index) {
     item.addEventListener('click', function () {
         let tagID = index + 1;
@@ -306,4 +309,3 @@ accor.forEach(function (accBtn) {
         }
     })
 })
-
