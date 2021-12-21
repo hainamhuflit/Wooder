@@ -38,6 +38,8 @@ const tagNews = $('.news__tag .tag'),
 
 const accor = $('.accor_item .accor-btn');
 
+const preloader = $('.preloader');
+
 let heightHeader = header.innerHeight(),
     heightSlider = slider.innerHeight(),
     heightFeature = feature.innerHeight(),
@@ -47,6 +49,37 @@ let heightHeader = header.innerHeight(),
     wWidth = window.innerWidth;
 
 let sections = [];
+
+
+$(window).on('load', () => {
+    preloader.addClass('hide');
+})
+
+//Intro Page
+
+const tl = gsap.timeline({
+    default: {
+        ease: 'power1.out'
+    }
+})
+
+tl.to('.text', {
+    y: '0%',
+    duration: 1,
+    stagger: .11,
+    delay: 1.5,
+});
+tl.to('.intro-slide', {
+    y: '-100%',
+    duration: 1.5,
+    delay: .5
+})
+tl.to('.intro', {
+    y: '-100%',
+    duration: 1,
+}, '-=1')
+
+
 
 
 $(document).ready(function () {
